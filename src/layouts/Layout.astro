@@ -1,0 +1,98 @@
+---
+import "../styles/global.css";
+const url = new URL(Astro.request.url).pathname;
+
+import { ClientRouter } from "astro:transitions";
+const { frontmatter, title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content={frontmatter?.description
+        ? frontmatter.description
+        : "My awesome blog"}
+    />
+    <meta property="og:image" content={`https://mywebsite.com/my-image.png`} />
+    <title>{title}</title>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="My cool blog"
+      href="/rss.xml"
+    />
+    <style is:global>
+      h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    </style>
+    <ClientRouter />
+  </head>
+  <body class="p-5">
+
+   
+     <div class="py-8">
+      <nav class="flex justify-center space-x-10 pb-10">
+        <a
+          href="/"
+          class={url === "/"
+            ? "font-bold text-gray-800 hover:text-gray-600"
+            : "font-medium text-gray-500 hover:text-gray-900"}>Home</a
+        >
+        <a
+          href="/pricing"
+          class={url === "/pricing"
+            ? "font-bold text-gray-800 hover:text-gray-600"
+            : "font-medium text-gray-500 hover:text-gray-900"}>Pricing</a
+        >
+        <a
+          href={"/blog/page/1"}
+          class={url === "/blog"
+            ? "font-bold text-gray-800 hover:text-gray-600"
+            : "font-medium text-gray-500 hover:text-gray-900"}>Blog</a
+        >
+        <a href="/login" class="font-medium text-gray-500 hover:text-gray-900"
+          >Login</a
+        >
+        <a
+          href="/signup"
+          class="font-medium text-white hover:bg-blue-600 bg-blue-500 px-3 py-2 -mt-2 rounded-lg"
+          >Sign up</a
+        >
+      </nav>
+
+    {frontmatter?.title && <h1 class="mt-10 text-center text-3xl mb-10 font-extrabold tracking-tight text-gray-900">{frontmatter.title}</h1>}
+    
+
+
+      <div class="mt-20 mx-auto text-center max-w-3xl px-10">
+        <slot />
+      </div>
+
+      <footer class="mt-20 pt-12 border-t-2 border-gray-300">
+        <nav class="flex justify-center pb-10 space-x-10">
+          <a href="/" class="font-medium text-gray-500 hover:text-gray-900"
+            >Home</a
+          >
+          <a
+            href="/pricing"
+            class="font-medium text-gray-500 hover:text-gray-900">Pricing</a
+          >
+          <a href="/blog" class="font-medium text-gray-500 hover:text-gray-900"
+            >Blog</a
+          >
+        </nav>
+        <p class="text-center text-gray-400">
+          &copy; 2025 Great Tool. All rights reserved.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
