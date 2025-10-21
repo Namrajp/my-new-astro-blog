@@ -59,7 +59,7 @@
 }
 
 /*****************************
- * Add your global styles in this file. nav styles
+ * Add your global media query styles in this file. nav styles
  *******************************/
 @media (min-width: 700px) {
   nav {
@@ -82,5 +82,50 @@
   .nav-links {
     display: flex;
     gap: 1rem;
+  }
+}
+
+/*****************************
+ *  Add custom styles for markdown tags
+ *******************************/
+@import "tailwindcss";
+
+@layer base {
+  h1 {
+    @apply text-4xl font-extrabold tracking-tight mt-10 mb-10;
+  }
+  h2 {
+    @apply text-3xl font-extrabold tracking-tight mt-10 mb-10;
+  }
+  h3 {
+    @apply text-2xl font-extrabold tracking-tight mt-10 mb-4;
+  }
+  h4 {
+    @apply mt-4 text-zinc-500 mb-4;
+  }
+  p {
+    @apply mt-4;
+  }
+  ul,
+  ol {
+    @apply mt-2  list-inside;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  li {
+    @apply pt-2;
+  }
+  a:not(nav a) {
+    @apply text-blue-600 underline;
+  }
+  pre code {
+    @apply bg-purple-900 text-zinc-100 p-8 rounded-lg block overflow-x-auto;
+  }
+  code {
+    @apply bg-zinc-200 text-zinc-800 px-1 rounded;
   }
 }
