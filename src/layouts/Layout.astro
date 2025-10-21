@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 const url = new URL(Astro.request.url).pathname;
+import "../main.ts";
 
 import { ClientRouter } from "astro:transitions";
 const { frontmatter, title } = Astro.props;
@@ -134,6 +135,6 @@ const { frontmatter, title } = Astro.props;
         </p>
       </footer>
     </div>
-    <script src="/src/pages/main.ts"></script>
+    <script src="/src/main.ts"></script>
   </body>
 </html>

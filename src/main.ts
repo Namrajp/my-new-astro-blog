@@ -1,3 +1,10 @@
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", getNavbarHeight);
+  } else {
+    getNavbarHeight();
+  }
+}
 function getNavbarHeight() {
   const navToggle = document.querySelector<HTMLElement>(".nav-toggle");
   const links = document.querySelector<HTMLElement>(".nav-links");
@@ -21,4 +28,3 @@ function getNavbarHeight() {
     }
   });
 }
-getNavbarHeight();
