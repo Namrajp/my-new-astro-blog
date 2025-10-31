@@ -100,6 +100,15 @@ const { frontmatter, title } = Astro.props;
                     >Login</a
                   >
                 </li>
+                <li>
+                  <a
+                    href="/signup"
+                    class={url === "/signup"
+                      ? "font-bold text-gray-800 hover:text-gray-600"
+                      : "font-medium text-gray-500 hover:text-gray-900 scroll-link"}
+                    >Signup</a
+                  >
+                </li>
               </ul>
             </div>
           </div>
