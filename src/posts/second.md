@@ -5,7 +5,7 @@ date: 2025-07-10
 tags:
   - news
   - tutorial
-  - misc
+  - miscellaneous
 ---
 
 Awesome!

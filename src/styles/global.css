@@ -91,6 +91,22 @@
 @import "tailwindcss";
 
 @layer base {
+  code,
+  pre,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  ul,
+  ol,
+  li,
+  a {
+    @apply text-justify text-zinc-800 leading-7 text-xl;
+  }
+  pre {
+    @apply mt-10 mb-10;
+  }
   h1 {
     @apply text-4xl font-extrabold tracking-tight mt-10 mb-10;
   }
@@ -120,7 +136,7 @@
     @apply pt-2;
   }
   a:not(nav a) {
-    @apply text-blue-600 underline;
+    @apply text-blue-600;
   }
   pre code {
     @apply bg-purple-900 text-zinc-100 p-8 rounded-lg block overflow-x-auto;

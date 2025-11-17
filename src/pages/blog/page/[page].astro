@@ -20,18 +20,16 @@ export async function getStaticPaths({
 const { page }: { page: Page } = Astro.props;
 const tags: string[] = [];
 page.data.map((post) => {
-  post.data.tags.map((tagItem:string) => {
+  post.data.tags.map((tagItem: string) => {
     if (!tags.includes(tagItem)) tags.push(tagItem);
   });
 });
-
-
 ---
 
 <Layout title="Blog archive">
   <h1>Blog archive</h1>
-    <p class="my-4">Explore by tag:</p>
-  <div class="my-4 space-x-2">
+  <p class="my-4">Explore by tag:</p>
+  <div class="my-2 space-x-2 space-y-2 flex flex-wrap">
     {
       tags.map((tag) => (
         <a

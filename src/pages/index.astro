@@ -23,8 +23,8 @@ posts = posts
   <ul>
     {
       posts.map((post) => (
-        <li>
-          <a class="underline" href={`/blog/${post.id}`}>
+        <li class="text-left">
+          <a class="text-lg font-medium " href={`/blog/${post.id}`}>
             {post.data.title}
           </a>
           <span>({post.data.date.toLocaleDateString()})</span>
@@ -38,7 +38,7 @@ posts = posts
   </p>
 
   <p class="my-4">Explore by tag:</p>
-  <div class="my-4 space-x-2">
+  <div class="my-4 space-x-2 space-y-4 flex flex-wrap">
     {
       tags.map((tag) => (
         <a

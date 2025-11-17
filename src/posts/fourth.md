@@ -4,7 +4,7 @@ title: "Fourth blog post"
 date: 2025-05-10
 tags:
   - essay
-  - misc
+  - miscellaneous
   - news
 ---
 
