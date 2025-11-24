@@ -1,11 +1,12 @@
 ---
 layout: "@layouts/Layout.astro"
-title: "Fourth blog post"
+title: "Lists and Dictionary Comprehension"
 date: 2025-05-10
 tags:
   - essay
   - miscellaneous
   - news
+  - python
 ---
 
 Awesome!
