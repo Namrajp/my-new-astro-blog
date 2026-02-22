@@ -1,9 +1,10 @@
 ---
 import "../styles/global.css";
-const url = new URL(Astro.request.url).pathname;
 import "../main.ts";
-
 import { ClientRouter } from "astro:transitions";
+import { SITE } from "../config";
+
+const url = new URL(Astro.request.url).pathname;
 const { frontmatter, title } = Astro.props;
 ---
 
@@ -16,15 +17,9 @@ const { frontmatter, title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <meta
       name="description"
-      content={frontmatter?.description
-        ? frontmatter.description
-        : "My awesome blog"}
+      content={frontmatter?.description ?? SITE.description}
     />
     <meta property="og:image" content={`https://mywebsite.com/my-image.png`} />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -57,8 +52,12 @@ const { frontmatter, title } = Astro.props;
             <div class="nav-header">
               <img src="/fix-anything-logo.svg" alt="logo" class="logo" />
 
-              <button class="nav-toggle">
-                <i class="fas fa-bars"></i>
+              <button class="nav-toggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
               </button>
             </div>
 
@@ -140,7 +139,7 @@ const { frontmatter, title } = Astro.props;
           >
         </nav>
         <p class="text-center text-gray-400">
-          &copy; 2025 Great Tool. All rights reserved.
+          &copy; 2026 Great Tool. All rights reserved.
         </p>
       </footer>
     </div>

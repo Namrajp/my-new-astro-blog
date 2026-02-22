@@ -1,6 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
+import PostCard from "../../../components/PostCard.astro";
+import TagBadge from "../../../components/TagBadge.astro";
+import Pagination from "../../../components/Pagination.astro";
+import { readingTime } from "../../../utils/readingTime";
+import { SITE } from "../../../config";
 
 import type { Page, PaginateFunction } from "astro";
 
@@ -13,14 +18,13 @@ export async function getStaticPaths({
   posts = posts.sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
   );
-
-  return paginate(posts, { pageSize: 8 });
+  return paginate(posts, { pageSize: SITE.postsPerPage });
 }
 
 const { page }: { page: Page } = Astro.props;
 const tags: string[] = [];
-page.data.map((post) => {
-  post.data.tags.map((tagItem: string) => {
+page.data.forEach((post) => {
+  post.data.tags.forEach((tagItem: string) => {
     if (!tags.includes(tagItem)) tags.push(tagItem);
   });
 });
@@ -30,48 +34,23 @@ page.data.map((post) => {
   <h1>Blog archive</h1>
   <p class="my-4">Explore by tag:</p>
   <div class="my-2 gap-x-2 gap-y-2 flex flex-wrap">
-    {
-      tags.map((tag) => (
-        <a
-          href={`/tag/${tag}`}
-          class="border border-black py-1 px-2 rounded-lg"
-        >
-          {tag}
-        </a>
-      ))
-    }
+    {tags.map((tag) => <TagBadge tag={tag} />)}
   </div>
   <p class="my-4">List of all the blog posts:</p>
   <ul>
-    {
-      page.data.map((post) => (
-        <li class="flex justify-between items-center gap-4">
-          <a class="underline" href={`/blog/${post.id}`}>
-            {post.data.title}
-          </a>
-          <span class="text-sm text-gray-500 shrink-0">{post.data.date.toLocaleDateString()}</span>
-        </li>
-      ))
-    }
+    {page.data.map((post) => (
+      <PostCard
+        title={post.data.title}
+        date={post.data.date}
+        slug={post.id}
+        readingTime={readingTime(post.body ?? "")}
+      />
+    ))}
   </ul>
-
-  <p class="my-4">Page {page.currentPage} of {page.lastPage}</p>
-  {
-    page.url.next && (
-      <p>
-        <a class="underline" href={page.url.next}>
-          next
-        </a>
-      </p>
-    )
-  }
-  {
-    page.url.prev && (
-      <p>
-        <a class="underline" href={page.url.prev}>
-          previous
-        </a>
-      </p>
-    )
-  }
+  <Pagination
+    currentPage={page.currentPage}
+    lastPage={page.lastPage}
+    prevUrl={page.url.prev}
+    nextUrl={page.url.next}
+  />
 </Layout>

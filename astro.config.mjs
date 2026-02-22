@@ -12,4 +12,10 @@ export default defineConfig({
   },
   site: "https://mygreatsite.com",
   integrations: [sitemap()],
+  markdown: {
+    shikiConfig: {
+      theme: "github-dark",
+      wrap: true,
+    },
+  },
 });

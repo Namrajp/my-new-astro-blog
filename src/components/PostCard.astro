@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  slug: string;
+  readingTime: number;
+}
+const { title, date, slug, readingTime } = Astro.props;
+---
+
+<li class="flex justify-between items-center gap-4">
+  <a class="font-medium hover:underline" href={`/blog/${slug}`}>{title}</a>
+  <div class="text-sm text-gray-500 shrink-0 flex gap-3">
+    <span>{readingTime} min read</span>
+    <span>{date.toLocaleDateString()}</span>
+  </div>
+</li>

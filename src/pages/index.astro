@@ -1,19 +1,21 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import TagBadge from "../components/TagBadge.astro";
+import { readingTime } from "../utils/readingTime";
+
 let posts = await getCollection("posts");
 
 const tags: string[] = [];
-posts.map((post) => {
-  post.data.tags.map((tag) => {
+posts.forEach((post) => {
+  post.data.tags.forEach((tag) => {
     if (!tags.includes(tag)) tags.push(tag);
   });
 });
 
 posts = posts
-  .sort(
-    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
-  )
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
   .slice(0, 4);
 ---
 
@@ -21,33 +23,22 @@ posts = posts
   <h1>Homepage</h1>
   <p class="my-4">Blog posts:</p>
   <ul>
-    {
-      posts.map((post) => (
-        <li class="flex justify-between items-center gap-4">
-          <a class="text-lg font-medium" href={`/blog/${post.id}`}>
-            {post.data.title}
-          </a>
-          <span class="text-sm text-gray-500 shrink-0">{post.data.date.toLocaleDateString()}</span>
-        </li>
-      ))
-    }
+    {posts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        date={post.data.date}
+        slug={post.id}
+        readingTime={readingTime(post.body ?? "")}
+      />
+    ))}
   </ul>
 
   <p class="py-4">
-    <a class="underline" href={"/blog/page/1"}> See all posts ▶︎ </a>
+    <a class="underline" href="/blog/page/1">See all posts ▶︎</a>
   </p>
 
   <p class="my-4">Explore by tag:</p>
   <div class="my-4 gap-x-2 gap-y-4 flex flex-wrap">
-    {
-      tags.map((tag) => (
-        <a
-          href={`/tag/${tag}`}
-          class="border border-black py-1 px-2 rounded-lg"
-        >
-          {tag}
-        </a>
-      ))
-    }
+    {tags.map((tag) => <TagBadge tag={tag} />)}
   </div>
 </Layout>

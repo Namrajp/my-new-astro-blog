@@ -1,0 +1,10 @@
+---
+interface Props {
+  tag: string;
+}
+const { tag } = Astro.props;
+---
+
+<a href={`/tag/${tag}`} class="border border-black py-1 px-2 rounded-lg text-sm">
+  {tag}
+</a>

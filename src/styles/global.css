@@ -138,8 +138,8 @@
   a:not(nav a) {
     @apply text-blue-600;
   }
-  pre code {
-    @apply bg-purple-900 text-zinc-100 p-8 rounded-lg block overflow-x-auto;
+  pre {
+    @apply rounded-lg overflow-x-auto;
   }
   code {
     @apply bg-zinc-200 text-zinc-800 px-1 rounded;
