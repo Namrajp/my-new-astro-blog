@@ -13,7 +13,8 @@ tags:
 venv is a low level environment in python.
 
 ```
-$ pip install virtualenv
+$ pip install virtualenv  # low level virtual environment, less prefereable to use
+$ pip3 install virtualenvwrapper  # high level environment with abstraction, more preferred
 $ python<version> -m venv <virtual-environment-name>
 ```
 
@@ -60,7 +61,9 @@ To change prompt to include a new line
 
 # Reinstall all dependencies
 
-`pip install -r requirements.txt 
+`pip freeze > requirements.txt`
+
+`pip install -r requirements.txt
 `
 
 ### Useful Links:
