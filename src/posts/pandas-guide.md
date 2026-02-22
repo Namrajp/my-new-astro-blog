@@ -1,3 +1,13 @@
+---
+layout: "@layouts/Layout.astro"
+title: "Getting Started with Pandas"
+date: 2026-02-22
+tags:
+  - python
+  - pandas
+  - tutorial
+---
+
 # Getting Started with Pandas
 ### A Minimal, Practical Guide for Python Developers
 

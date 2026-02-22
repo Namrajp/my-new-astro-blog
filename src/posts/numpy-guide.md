@@ -1,3 +1,13 @@
+---
+layout: "@layouts/Layout.astro"
+title: "Getting Started with NumPy"
+date: 2026-02-22
+tags:
+  - python
+  - numpy
+  - tutorial
+---
+
 # Getting Started with NumPy
 ### A Minimal, Practical Guide for Python & C Developers
 
