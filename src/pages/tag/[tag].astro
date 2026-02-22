@@ -31,14 +31,14 @@ const { posts } = Astro.props;
 
   <p class="my-4">Posts tagged {tag}:</p>
 
-  <ul class="list-inside list-disc">
+  <ul>
     {
       posts.map((post) => (
-        <li>
+        <li class="flex justify-between items-center gap-4">
           <a class="underline" href={`/blog/${post.id}`}>
             {post.data.title}
           </a>
-          <span>({post.data.date.toLocaleDateString()})</span>
+          <span class="text-sm text-gray-500 shrink-0">{post.data.date.toLocaleDateString()}</span>
         </li>
       ))
     }
