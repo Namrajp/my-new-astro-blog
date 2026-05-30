@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Person circuit favicon">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef4ff"/>
+      <stop offset="100%" stop-color="#d8e4f7"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg2)"/>
+  <circle cx="52" cy="48" r="16" fill="none" stroke="#213a63" stroke-width="5"/>
+  <path d="M29 87c7-12 15-17 23-17s16 5 23 17" fill="none" stroke="#213a63" stroke-width="5" stroke-linecap="round"/>
+  <path d="M70 42l20-9" stroke="#f26734" stroke-width="4" stroke-linecap="round"/>
+  <path d="M70 70l20 9" stroke="#f26734" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="93" cy="32" r="5" fill="#f26734"/>
+  <circle cx="93" cy="82" r="5" fill="#f26734"/>
+</svg>

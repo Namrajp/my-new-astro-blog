@@ -1,93 +1,216 @@
 @import "tailwindcss";
-.header a {
-  color: purple;
-}
 
 /*****************************
  * Add your global styles in this file. nav styles
  *******************************/
+:root {
+  --layout-max: 1080px;
+  --surface: #ffffff;
+  --border-subtle: #dbe2ea;
+  --text-strong: #0f172a;
+  --text-soft: #526070;
+  --brand: #f36a2d;
+  --shadow-soft: 0 16px 30px rgba(15, 23, 42, 0.08);
+}
+
+.site-body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(243, 106, 45, 0.14), transparent 35%),
+    radial-gradient(circle at 85% 0%, rgba(14, 165, 233, 0.12), transparent 30%),
+    #eef2f7;
+  color: var(--text-strong);
+}
+
+.page-shell {
+  width: min(100% - 2rem, var(--layout-max));
+  margin: 1.2rem auto 2.25rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+}
+
 .nav {
-  background: var(---clr-white);
-  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.9rem;
 }
 .nav ul {
   list-style-type: none;
 }
-.nav-header {
+.nav-center {
+  width: min(100%, 860px);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.8rem;
+  position: relative;
+  background: color-mix(in srgb, #ffffff 85%, transparent);
+  border-radius: 14px;
+  padding: 0.45rem 0.6rem;
+}
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .nav-toggle {
-  background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
   cursor: pointer;
+}
+.nav-toggle:hover {
+  background: var(--brand);
+  color: #fff;
 }
 .links-container {
   height: 0;
   overflow: hidden;
-  transition: var(--transition);
+  transition: height 260ms ease;
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  right: 0;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
 }
 .nav-links {
   margin: 0;
-  padding: 0;
+  padding: 0.45rem;
+  text-align: left;
 }
 .logo {
-  height: 100px;
-  font-size: 2rem;
+  display: block;
+  height: 62px;
+  width: auto;
 }
 
-.nav-links a {
+.nav-link {
   display: block;
   position: relative;
-  padding: 0.35rem 0;
+  padding: 0.65rem 0.95rem;
+  margin: 0.18rem 0;
+  border-radius: 10px;
+  color: var(--text-soft);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
 }
-.nav-links a:hover {
-  background-color: lightgrey;
+.nav-link:hover {
+  background-color: rgba(15, 23, 42, 0.08);
+  color: var(--text-strong);
 }
-.nav-links a::before {
-  content: " "; /* Required for the pseudo-element to exist */
-  display: block; /* Or inline-block, depending on desired layout */
-  left: 0;
-  bottom: 10px;
-  width: 50px;
-  height: 10px;
-  height: 2px;
-  /* background-color: red; */
-  /* Default color of the pseudo-element */
-  position: absolute; /* Adjust position as needed */
-  top: 100%;
-  transform: translateY(-100%);
+.nav-link.is-active {
+  background-color: rgba(243, 106, 45, 0.13);
+  color: #b94917;
 }
-.nav-links a:hover::before {
-  background-color: green;
+
+.content-shell {
+  max-width: 760px;
+  margin: 2.5rem auto 0;
+  padding: 0 1rem;
+}
+
+.page-title {
+  margin: 2.5rem 0 1.25rem;
+  text-align: center;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.site-footer {
+  max-width: 760px;
+  margin: 3.25rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.footer-link {
+  color: var(--text-soft);
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+.footer-link:hover {
+  color: var(--text-strong);
+}
+
+.footer-copy {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
 /*****************************
  * Add your global media query styles in this file. nav styles
  *******************************/
 @media (min-width: 700px) {
-  nav {
-    background: transparent;
-  }
   .nav-toggle {
     display: none;
   }
   .nav-center {
-    width: 90vw;
-    max-width: 1170px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 0.35rem 0.5rem;
   }
   .links-container {
     height: auto !important;
+    width: auto;
+    position: static;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
   .nav-links {
     display: flex;
-    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0;
+  }
+  .nav-link {
+    margin: 0;
+    padding: 0.52rem 0.86rem;
+    border-radius: 999px;
+  }
+}
+
+@media (max-width: 699px) {
+  .page-shell {
+    width: min(100% - 1rem, var(--layout-max));
+    margin: 0.75rem auto;
+    padding: 0.85rem;
+  }
+  .logo {
+    height: 54px;
+  }
+  .content-shell {
+    margin-top: 2rem;
+    padding: 0 0.25rem;
+  }
+  .site-footer {
+    margin-top: 2.25rem;
   }
 }
 
@@ -95,57 +218,57 @@
  *  Add custom styles for markdown tags
  *******************************/
 @layer base {
-  code,
-  pre,
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  ul,
-  ol,
-  li,
-  a {
+  .content-shell code,
+  .content-shell pre,
+  .content-shell p,
+  .content-shell h1,
+  .content-shell h2,
+  .content-shell h3,
+  .content-shell h4,
+  .content-shell ul,
+  .content-shell ol,
+  .content-shell li,
+  .content-shell a {
     @apply text-justify text-zinc-800 leading-7 text-xl;
   }
-  pre {
+  .content-shell pre {
     @apply mt-10 mb-10;
   }
-  h1 {
+  .content-shell h1 {
     @apply text-4xl font-extrabold tracking-tight mt-10 mb-10;
   }
-  h2 {
+  .content-shell h2 {
     @apply text-3xl font-extrabold tracking-tight mt-10 mb-10;
   }
-  h3 {
+  .content-shell h3 {
     @apply text-2xl font-extrabold tracking-tight mt-10 mb-4;
   }
-  h4 {
+  .content-shell h4 {
     @apply mt-4 text-zinc-500 mb-4;
   }
-  p {
+  .content-shell p {
     @apply mt-4;
   }
-  ul,
-  ol {
+  .content-shell ul,
+  .content-shell ol {
     @apply mt-2  list-inside;
   }
-  ul {
+  .content-shell ul {
     @apply list-disc;
   }
-  ol {
+  .content-shell ol {
     @apply list-decimal;
   }
-  li {
+  .content-shell li {
     @apply pt-2;
   }
-  a:not(nav a) {
+  .content-shell a {
     @apply text-blue-600;
   }
-  pre {
+  .content-shell pre {
     @apply rounded-lg overflow-x-auto;
   }
-  code {
+  .content-shell code {
     @apply bg-zinc-200 text-zinc-800 px-1 rounded;
   }
 }

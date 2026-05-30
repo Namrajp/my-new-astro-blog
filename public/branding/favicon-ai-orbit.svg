@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="AI orbit favicon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1f38"/>
+      <stop offset="100%" stop-color="#1f3b64"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <circle cx="64" cy="64" r="27" fill="none" stroke="#55a9ff" stroke-width="5"/>
+  <circle cx="64" cy="64" r="16" fill="none" stroke="#73ffd5" stroke-width="4"/>
+  <circle cx="91" cy="64" r="6" fill="#55a9ff"/>
+  <circle cx="56" cy="38" r="5" fill="#73ffd5"/>
+  <circle cx="48" cy="80" r="5" fill="#ff8f5d"/>
+</svg>
