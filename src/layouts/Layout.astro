@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import "../main.ts";
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "../config";
 
@@ -19,7 +18,7 @@ const { frontmatter, title } = Astro.props;
       name="description"
       content={frontmatter?.description ?? SITE.description}
     />
-    <meta property="og:image" content={`https://mywebsite.com/my-image.png`} />
+    <meta property="og:image" content={`${SITE.url}/my-image.png`} />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -143,6 +142,6 @@ const { frontmatter, title } = Astro.props;
         </p>
       </footer>
     </div>
-    <script src="/src/main.ts"></script>
+    <script src="../main.ts"></script>
   </body>
 </html>
