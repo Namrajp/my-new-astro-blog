@@ -16,11 +16,9 @@ function getNavbarHeight() {
     return;
   }
   navToggle.addEventListener("click", function () {
-    //   links.classList.toggle("show-links");
-    //   console.log(linksHeight);
-    const linksHeight = links.getBoundingClientRect().height;
+    const linksHeight = links.scrollHeight;
     const containerHeight = linksContainer.getBoundingClientRect().height;
-    //   console.log(containerHeight);
+
     if (containerHeight === 0) {
       linksContainer.style.height = `${linksHeight}px`;
     } else {
