@@ -8,6 +8,7 @@ import { readingTime } from "../../../utils/readingTime";
 import { SITE } from "../../../config";
 
 import type { Page, PaginateFunction } from "astro";
+import chalk from 'chalk';
 
 export async function getStaticPaths({
   paginate,
@@ -20,22 +21,42 @@ export async function getStaticPaths({
   );
   return paginate(posts, { pageSize: SITE.postsPerPage });
 }
+interface Props {
+  page: Page<any>;
+  tag: string;
+  colorClass: string;
+}
 
 const { page }: { page: Page } = Astro.props;
+
 const allPosts = await getCollection("posts");
+
 const tags: string[] = [];
 allPosts.forEach((post) => {
   post.data.tags.forEach((tagItem: string) => {
     if (!tags.includes(tagItem)) tags.push(tagItem);
   });
 });
+
+
+const { tag, colorClass } = Astro.props;
+const COLOR_PALETTE = [
+  'bg-red-100 text-red-800',
+  'bg-blue-100 text-blue-800',
+  'bg-green-100 text-green-800',
+  'bg-purple-100 text-purple-800',
+  'bg-pink-100 text-pink-800'
+];
 ---
 
 <Layout title="Blog archive">
   <h1>Blog archive</h1>
   <p class="my-4">Explore by tag:</p>
   <div class="my-2 gap-x-2 gap-y-2 flex flex-wrap">
-    {tags.map((tag) => <TagBadge tag={tag} />)}
+    <!-- {tags.map((tag) => <TagBadge tag={tag} />)} -->
+         {tags.map((tag, index) => (
+      <TagBadge tag={tag} colorClass={COLOR_PALETTE[index % COLOR_PALETTE.length]}  />
+    ))}
   </div>
   <p class="my-4">List of all the blog posts:</p>
   <ul>

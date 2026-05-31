@@ -1,10 +1,11 @@
 ---
 interface Props {
   tag: string;
+  colorClass: string;
 }
-const { tag } = Astro.props;
+const { tag, colorClass } = Astro.props;
 ---
 
-<a href={`/tag/${tag}`} class="border border-black py-1 px-2 rounded-lg text-sm">
+<a href={`/tag/${tag}`} class=`border border-black py-1 px-2 rounded-lg text-sm ${colorClass}`>
   {tag}
 </a>

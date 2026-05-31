@@ -4,6 +4,7 @@ import Layout from "@layouts/Layout.astro";
 import PostCard from "../components/PostCard.astro";
 import TagBadge from "../components/TagBadge.astro";
 import { readingTime } from "../utils/readingTime";
+import chalk from 'chalk';
 
 let posts = await getCollection("posts");
 
@@ -17,6 +18,14 @@ posts.forEach((post) => {
 posts = posts
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
   .slice(0, 4);
+
+const COLOR_PALETTE = [
+  'bg-red-100 text-red-800',
+  'bg-blue-100 text-blue-800',
+  'bg-green-100 text-green-800',
+  'bg-purple-100 text-purple-800',
+  'bg-pink-100 text-pink-800'
+];
 ---
 
 <Layout title="Homepage">
@@ -39,6 +48,8 @@ posts = posts
 
   <p class="my-4">Explore by tag:</p>
   <div class="my-4 gap-x-2 gap-y-4 flex flex-wrap">
-    {tags.map((tag) => <TagBadge tag={tag} />)}
+    {tags.map((tag, index) => (
+      <TagBadge tag={tag} colorClass={COLOR_PALETTE[index % COLOR_PALETTE.length]}  />
+    ))}
   </div>
 </Layout>
