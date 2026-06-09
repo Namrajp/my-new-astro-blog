@@ -2,32 +2,57 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "../config";
+import { stripBase, withBase } from "../utils/paths";
 
-const url = new URL(Astro.request.url).pathname;
-const { frontmatter, title } = Astro.props;
-const isHome = url === "/";
-const isBlog = url.startsWith("/blog");
+const path = new URL(Astro.request.url).pathname;
+const pagePath = stripBase(path);
+const { frontmatter, title, description, contentClass } = Astro.props;
+const metaDescription = description ?? frontmatter?.description ?? SITE.description;
+const pageTitle =
+  !title || title === SITE.title ? SITE.title : `${title} | ${SITE.title}`;
+const canonicalUrl = new URL(path, SITE.origin).toString();
+const ogImage = new URL(withBase(SITE.ogImage), SITE.origin).toString();
+const navLinks = [
+  { href: withBase("/"), label: "Home", active: pagePath === "/" },
+  {
+    href: withBase("/blog/page/1"),
+    label: "Blog",
+    active: pagePath.startsWith("/blog"),
+  },
+  { href: withBase("/about"), label: "About", active: pagePath === "/about" },
+  {
+    href: withBase("/contact"),
+    label: "Contact",
+    active: pagePath === "/contact",
+  },
+];
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/branding/favicon-person-circuit.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content={frontmatter?.description ?? SITE.description}
-    />
-    <meta property="og:image" content={`${SITE.url}/my-image.png`} />
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content={frontmatter ? "article" : "website"} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="My cool blog"
-      href="/rss.xml"
+      title={SITE.title}
+      href={withBase("/rss.xml")}
     />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
 
     <style is:global>
       .svg-container {
@@ -44,14 +69,20 @@ const isBlog = url.startsWith("/blog");
   <body class="site-body">
     <div class="page-shell">
       <header id="home">
-        <nav class="nav" id="navigation">
+        <nav class="nav border-b border-zinc-200" id="navigation">
           <div class="nav-center" id="nav">
             <div class="nav-header">
-              <img
-                src="/branding/logo-person-circuit.webp"
-                alt="AI logo"
-                class="logo"
-              />
+              <a class="flex items-center gap-3 no-underline" href={withBase("/")}>
+                <img src={withBase("/blog-logo.svg")} alt="Fix Anything Blog logo" class="logo" />
+                <div class="text-left">
+                  <p class="m-0 text-base font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                    {SITE.title}
+                  </p>
+                  <p class="m-0 text-sm text-zinc-500">
+                    Practical guides for developers building their fundamentals
+                  </p>
+                </div>
+              </a>
 
               <button class="nav-toggle" aria-label="Toggle navigation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -64,57 +95,22 @@ const isBlog = url.startsWith("/blog");
 
             <div class="links-container">
               <ul class="nav-links">
-                <li>
-                  <a
-                    href="/"
-                    class:list={[
-                      "nav-link",
-                      {
-                        "is-active": isHome,
-                      },
-                    ]}
-                    >Home</a
-                  >
-                </li>
-                <!-- <li>
-                  <a
-                    href="/pricing"
-                    class={url === "/pricing"
-                      ? "font-bold text-gray-800 hover:text-gray-600"
-                      : "font-medium text-gray-500 hover:text-gray-900 scroll-link"}
-                    >Pricing</a
-                  >
-                </li> -->
-                <li>
-                  <a
-                    href="/blog/page/1"
-                    class:list={[
-                      "nav-link",
-                      {
-                        "is-active": isBlog,
-                      },
-                    ]}
-                    >Blog</a
-                  >
-                </li>
-                <!-- <li>
-                  <a
-                    href="/login"
-                    class={url === "/login"
-                      ? "font-bold text-gray-800 hover:text-gray-600"
-                      : "font-medium text-gray-500 hover:text-gray-900 scroll-link"}
-                    >Login</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="/signup"
-                    class={url === "/signup"
-                      ? "font-bold text-gray-800 hover:text-gray-600"
-                      : "font-medium text-gray-500 hover:text-gray-900 scroll-link"}
-                    >Signup</a
-                  >
-                </li> -->
+                {navLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      aria-current={link.active ? "page" : undefined}
+                      class:list={[
+                        "nav-link",
+                        {
+                          "is-active": link.active,
+                        },
+                      ]}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -128,21 +124,20 @@ const isBlog = url.startsWith("/blog");
         )
       }
 
-      <main class="content-shell">
+      <main class={contentClass ?? "content-shell"}>
         <slot />
       </main>
 
       <footer class="site-footer">
         <nav class="footer-links">
-          <a href="/" class="footer-link">Home</a>
-          <!-- <a
-            href="/pricing"
-            class="font-medium text-gray-500 hover:text-gray-900">Pricing</a
-          > -->
-          <a href="/blog/page/1" class="footer-link">Blog</a>
+          {navLinks.map((link) => (
+            <a href={link.href} class="footer-link">
+              {link.label}
+            </a>
+          ))}
         </nav>
         <p class="footer-copy">
-          &copy; 2026 Great Tool. All rights reserved.
+          &copy; 2026 {SITE.title}. Beginner-friendly notes on Python, AI tools, and practical workflows.
         </p>
       </footer>
     </div>

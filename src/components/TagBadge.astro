@@ -1,11 +1,19 @@
 ---
+import { withBase } from "../utils/paths";
+
 interface Props {
   tag: string;
-  colorClass: string;
+  colorClass?: string;
 }
 const { tag, colorClass } = Astro.props;
 ---
 
-<a href={`/tag/${tag}`} class=`border border-black py-1 px-2 rounded-lg text-sm ${colorClass}`>
+<a
+  href={withBase(`/tag/${tag}`)}
+  class:list={[
+    "inline-flex rounded-full border px-3 py-1 text-sm font-medium no-underline transition",
+    colorClass ?? "border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-400 hover:bg-emerald-100",
+  ]}
+>
   {tag}
 </a>
